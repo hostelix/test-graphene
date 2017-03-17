@@ -1,7 +1,7 @@
 import json
 import graphene
 from database import init_db, db_session
-from schema import Query
+from schema import Query, Movie
 
 if __name__ == '__main__':
     init_db()
@@ -10,46 +10,26 @@ if __name__ == '__main__':
 
     query1 = '''
         query {
-            gentes {
-                name
-            }
-        }
-    '''
+            movies {
 
-    query = '''
-            query {
-                persons {
-                    edges{
-                        node {
+                        id
+                        name
+                        duration
+                        gender {
+                            name
+                        }
+                        director {
+                            firstName
+                            lastName
+                        }
+                        actors {
                             id
                             firstName
-
-                            hobbies{
-                                name
-                            }
+                            lastName
                         }
-                    }
-                }
-            }
-        '''
 
-    query2 = '''
-    query {
-        allPersons{
-            edges {
-                node {
-                    person {
-                        firstName
-                        age
-                    }
-
-                    hobbies {
-                        name
-                    }
-                }
             }
         }
-    }
     '''
 
 
