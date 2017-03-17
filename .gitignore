@@ -2,3 +2,4 @@
 .idea/
 env/
 local/
+env_vars.json
