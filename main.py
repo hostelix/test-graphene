@@ -11,7 +11,8 @@ if __name__ == '__main__':
     query1 = '''
         query {
             movies {
-
+                edges{
+                    node{
                         id
                         name
                         duration
@@ -27,7 +28,8 @@ if __name__ == '__main__':
                             firstName
                             lastName
                         }
-
+                    }
+                }
             }
         }
     '''
