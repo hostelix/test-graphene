@@ -17,10 +17,12 @@ class Movie(SQLAlchemyObjectType):
         model = MovieModel
         interfaces = (relay.Node,)
 
+    actors = graphene.List(Actor)
 
-class Category(SQLAlchemyObjectType):
+
+class Gender(SQLAlchemyObjectType):
     class Meta:
-        model = CategoryModel
+        model = GenderModel
         interfaces = (relay.Node,)
 
 
@@ -35,12 +37,6 @@ class Query(graphene.ObjectType):
 
     actors = SQLAlchemyConnectionField(Actor)
     movies = SQLAlchemyConnectionField(Movie)
-    categories = SQLAlchemyConnectionField(Category)
+    genders = SQLAlchemyConnectionField(Gender)
     directors = SQLAlchemyConnectionField(Director)
-
-    gentes = graphene.List(Actor)
-
-    def resolve_gentes(self, args, context, info):
-        query = Actor.get_query(context)  # SQLAlchemy query
-        return query.all()
 
