@@ -39,4 +39,3 @@ class Query(graphene.ObjectType):
     movies = SQLAlchemyConnectionField(Movie)
     genders = SQLAlchemyConnectionField(Gender)
     directors = SQLAlchemyConnectionField(Director)
-
