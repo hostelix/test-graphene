@@ -1,8 +1,14 @@
-from sqlalchemy import Column, String, Integer, ForeignKey, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
+actors_movies = Table(
+    'actors_movies', Base.metadata,
+    Column('actor_id', Integer, ForeignKey('actors.id')),
+    Column('movie_id', Integer, ForeignKey('movies.id'))
+)
 
 
 # Models
@@ -20,8 +26,8 @@ class DirectorModel(Base):
     last_name = Column(String)
 
 
-class CategoryModel(Base):
-    __tablename__ = 'categories'
+class GenderModel(Base):
+    __tablename__ = 'genders'
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
@@ -31,8 +37,10 @@ class MovieModel(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     duration = Column(Float)
-    category_id = Column(Integer, ForeignKey('categories.id'))
+    gender_id = Column(Integer, ForeignKey('genders.id'))
     director_id = Column(Integer, ForeignKey('directors.id'))
 
-    category = relationship(CategoryModel)
+    gender = relationship(GenderModel)
     director = relationship(DirectorModel)
+
+    actors = relationship(ActorModel, backref="movies", secondary='actors_movies')
